@@ -1,0 +1,28 @@
+---
+const adminUrl = "http://localhost:3333";
+---
+
+<!doctype html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Přesměrování do administrace...</title>
+
+    <meta http-equiv="refresh" content={`0;url=${adminUrl}`} />
+
+    <script define:vars={{ adminUrl }}>
+      window.location.href = adminUrl;
+    </script>
+  </head>
+  <body
+    style="font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background-color: #f4f4f4;"
+  >
+    <div style="text-align: center;">
+      <p>Přesměrovávám do administrace...</p>
+      <p style="font-size: 0.8rem; color: #666;">
+        Pokud přesměrování neproběhne, <a href={adminUrl}>klikněte sem</a>.
+      </p>
+    </div>
+  </body>
+</html>

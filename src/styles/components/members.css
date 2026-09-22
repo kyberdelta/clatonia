@@ -1,0 +1,42 @@
+.member-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 2.5rem;
+    margin-top: 2.5rem;
+    text-align: center;
+}
+
+.member-card img {
+    width: 100%;
+    max-width: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    aspect-ratio: 1 / 1;
+
+    border: 2px solid var(--border);
+    background-color: var(--dark);
+
+    margin: 0 auto;
+    display: block;
+
+    transition: border-color 0.3s ease;
+}
+
+.member-card:hover img {
+    border-color: var(--primary);
+}
+
+.member-card h3 {
+    margin-top: 1.5rem;
+    color: var(--primary);
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.member-role {
+    font-size: 0.95rem;
+    color: var(--light-alt);
+    font-style: italic;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}

@@ -1,0 +1,93 @@
+:root {
+    --primary: #8c680d;
+    /* Temně oranžovo-červená (rez/oheň) */
+    --primary-hover: #b38b22;
+    /* Světlejší pro najetí myší */
+    --dark: #121212;
+    /* Téměř černá (kovářská čerň) */
+    --dark-alt: #1a1a1a;
+    /* Trochu světlejší černá pro střídání sekcí */
+    --light: #f5f5f5;
+    /* Velmi světle šedá pro texty */
+    --light-alt: #a0a0a0;
+    /* Mírně tmavší šedá pro podnadpisy/popisky */
+    --border: #333333;
+    /* Barva linek u nadpisů a ohraničení */
+    --header: #f0c36f;
+}
+
+body {
+    font-family: system-ui, sans-serif;
+    margin: 0;
+    background-color: var(--dark);
+    color: var(--light);
+    line-height: 1.6;
+}
+
+/* FONT CLASSIC */
+.font-classic {
+    font-family: 'Inter', system-ui, sans-serif;
+}
+
+.font-classic h1,
+.font-classic h2 {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+/* FONT CLATONIA (Font pro Šermířské divadlo) */
+.font-clatonia {
+    font-family: 'Lora', Georgia, serif;
+}
+
+.font-clatonia h1,
+.font-clatonia h2 {
+    font-family: 'Cinzel Decorative', serif;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--primary);
+    /* Nadpisy budou v barvě ohně/rzi! */
+}
+
+.font-clatonia h3 {
+    font-family: 'Cinzel Decorative', serif;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+/* ROZVRŽENÍ A SEKCE */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.section {
+    padding: 4rem 1rem;
+}
+
+/* Nahradili jsme .bg-light za .bg-alt (tmavší sekce pro kontrast) */
+.bg-alt {
+    background: var(--dark-alt);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.about-text {
+    font-size: 1.1rem;
+    color: var(--light);
+    /* Opraveno z #333, aby to bylo čitelné na tmavém */
+}
+
+.section-title-lined {
+    font-size: 2.2rem;
+    color: var(--light);
+    /* Hlavní nadpisy sekcí budou čistě světlé */
+    border-bottom: 1px solid var(--border);
+    /* Opraveno z #ccc */
+    padding-bottom: 0.5rem;
+    margin-bottom: 2.5rem;
+    text-transform: uppercase;
+}

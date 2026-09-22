@@ -1,0 +1,38 @@
+---
+import "../styles/components/performances.css";
+import { urlFor } from "../lib/sanity";
+
+interface Props {
+  title: string;
+  items: any[];
+}
+
+// Načteme data, která nám pošle index.astro
+const { title, items } = Astro.props;
+---
+
+<section id="performances" class="section container">
+  <h2 class="section-title-lined">{title}</h2>
+
+  <div class="performances-list">
+    {
+      items.map((item) => (
+        <div class="performance-row">
+          {item.image && (
+            <div class="performance-image">
+              <img
+                src={urlFor(item.image).width(500).height(500).url()}
+                alt={item.title}
+              />
+            </div>
+          )}
+
+          <div class="performance-content">
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>

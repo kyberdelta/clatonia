@@ -1,0 +1,29 @@
+---
+import { urlFor } from "../lib/sanity";
+import "../styles/components/hero.css";
+
+interface Props {
+  groupName: string;
+  tagline: string;
+  heroImage?: any;
+}
+
+const { groupName, tagline, heroImage } = Astro.props;
+
+const bgUrl = heroImage
+  ? urlFor(heroImage).width(1920).auto("format").url()
+  : "";
+---
+
+<section
+  class="hero"
+  style={bgUrl
+    ? `background-image: linear-gradient(rgba(0,0,0, 0.1), rgba(0,0,0, 0.1)), url('${bgUrl}');`
+    : "background-color: #333;"}
+>
+  <div class="container hero-content">
+    <h1>{groupName}</h1>
+    <p class="tagline">{tagline}</p>
+    <a href="#contact" class="btn-primary">Kontakt</a>
+  </div>
+</section>
