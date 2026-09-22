@@ -1,0 +1,38 @@
+---
+import "../styles/components/members.css";
+import { urlFor } from "../lib/sanity";
+
+interface Member {
+  name: string;
+  role?: string;
+  image?: any;
+}
+
+interface Props {
+  title: string;
+  items: Member[];
+}
+
+const { title, items } = Astro.props;
+---
+
+<section id="members" class="section container">
+  <h2 class="section-title-lined">{title}</h2>
+
+  <div class="member-grid">
+    {
+      items.map((person) => (
+        <div class="member-card">
+          {person.image && (
+            <img
+              src={urlFor(person.image).width(300).height(300).url()}
+              alt={person.name}
+            />
+          )}
+          <h3>{person.name}</h3>
+          {person.role && <p class="member-role">{person.role}</p>}
+        </div>
+      ))
+    }
+  </div>
+</section>

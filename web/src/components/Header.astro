@@ -1,0 +1,51 @@
+---
+import { urlFor } from "../lib/sanity";
+import "../styles/components/header.css";
+
+interface Props {
+  logoImage?: any;
+  groupName: string;
+  titleAboutUs: string;
+  titlePerformances: string;
+  titleCalendar: string;
+  titleMembers: string;
+  titleContact: string;
+}
+
+const {
+  logoImage,
+  groupName,
+  titleAboutUs,
+  titlePerformances,
+  titleCalendar,
+  titleMembers,
+  titleContact,
+} = Astro.props;
+
+const finalLogoUrl = logoImage ? urlFor(logoImage).url() : "";
+---
+
+<header class="header">
+  <div class="container nav-bar">
+    <a href="/" class="logo">
+      {
+        finalLogoUrl !== "/logo.png" && (
+          <img
+            src={finalLogoUrl}
+            alt={`Logo ${groupName}`}
+            class="header-logo"
+          />
+        )
+      }
+      <strong>{groupName}</strong>
+    </a>
+
+    <nav>
+      <a href="#aboutUs">{titleAboutUs}</a>
+      <a href="#performances">{titlePerformances}</a>
+      <a href="#calendar">{titleCalendar}</a>
+      <a href="#members">{titleMembers}</a>
+      <a href="#contact" class="btn-nav">{titleContact}</a>
+    </nav>
+  </div>
+</header>

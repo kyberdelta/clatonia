@@ -1,0 +1,33 @@
+.event-list {
+    margin-top: 1.5rem;
+}
+
+.event-row {
+    display: flex;
+    gap: 2rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.event-row:last-child {
+    border-bottom: none;
+}
+
+.event-date {
+    font-weight: bold;
+    color: var(--primary);
+    width: 140px;
+    flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+    .event-row {
+        flex-direction: column;
+        gap: 0.25rem;
+        padding: 1rem 0;
+    }
+
+    .event-date {
+        width: auto;
+    }
+}

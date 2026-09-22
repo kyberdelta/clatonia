@@ -1,0 +1,157 @@
+---
+import "../styles/global.css";
+
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import Contact from "../components/Contact.astro";
+import Footer from "../components/Footer.astro";
+import Performances from "../components/Performances.astro";
+import Calendar from "../components/Calendar.astro";
+import Members from "../components/Members.astro";
+
+import { sanityClient } from "../lib/sanity";
+
+interface SanityEvent {
+  title: string;
+  date?: string;
+  time?: string;
+  location?: string;
+  description?: string;
+  image?: any;
+}
+
+const sanityActions = await sanityClient.fetch<SanityEvent[]>(`
+  *[_type == "event"] | order(date desc) {
+    title,
+    date,
+    time,         
+    location,     
+    description,
+    image
+  }
+`);
+
+interface SiteContent {
+  themeFont?: string;
+  // HEADER
+  groupName?: string;
+  logo?: any;
+  titleAboutUs?: string;
+  titlePerformances?: string;
+  titleCalendar?: string;
+  titleMembers?: string;
+  titleContact?: string;
+
+  // HERO
+  heroImage?: any;
+
+  tagline?: string;
+  aboutText?: string;
+
+  email?: string;
+  phone?: string;
+  phoneContactName?: string;
+
+  facebookUrl?: string;
+  instagramUrl?: string;
+}
+
+const siteContent = await sanityClient.fetch<SiteContent>(`
+  *[_type == "siteSettings"][0]
+`);
+
+interface SanityPerformance {
+  title: string;
+  description?: string;
+  image?: any;
+}
+
+const performance = await sanityClient.fetch<SanityPerformance[]>(`
+  *[_type == "performance"] | order(_createdAt asc) {
+    title,
+    description,
+    image
+  }   
+`);
+
+interface SanityPerformer {
+  name: string;
+  role: string;
+  image?: any;
+}
+
+const performer = await sanityClient.fetch<SanityPerformer[]>(`
+  *[_type == "performer"] | order(_createdAt asc) {
+    name,
+    role,
+    image
+  }
+`);
+---
+
+<html lang="cs">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Lora:ital,wght@0,400..700;1,400..700&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>{siteContent.groupName}</title>
+  </head>
+  <body class={siteContent.themeFont || "font-clatonia"}>
+    <Header
+      logoImage={siteContent.logo}
+      groupName={siteContent.groupName || "tmpGroupName"}
+      titleAboutUs={siteContent.titleAboutUs || "tmpAboutUs"}
+      titlePerformances={siteContent.titlePerformances || "tmpPerformances"}
+      titleCalendar={siteContent.titleCalendar || "tmpCalendar"}
+      titleMembers={siteContent.titleMembers || "tmpMembers"}
+      titleContact={siteContent.titleContact || "tmpContact"}
+    />
+
+    <main>
+      <Hero
+        groupName={siteContent.groupName || "tmpGroupName"}
+        tagline={siteContent.tagline || "tmpTagline"}
+        heroImage={siteContent.heroImage}
+      />
+
+      <section id="aboutUs" class="section container">
+        <h2 class="section-title-lined">{siteContent.titleAboutUs}</h2>
+        <p class="about-text">{siteContent.aboutText}</p>
+      </section>
+
+      <Performances
+        title={siteContent.titlePerformances || "tmpTitlePerformances"}
+        items={performance}
+      />
+
+      <Calendar
+        title={siteContent.titleCalendar || "tmpTitleCalendar"}
+        items={sanityActions}
+      />
+
+      <Members
+        title={siteContent.titleMembers || "tmpTitleMembers"}
+        items={performer}
+      />
+
+      <section id="contact" class="section container">
+        <Contact
+          email={siteContent.email || "tmpEmail"}
+          phone={siteContent.phone || "tmpPhone"}
+          phoneContactName={siteContent.phoneContactName || "tmpContactName"}
+          facebookUrl={siteContent.facebookUrl || "tmp.facebook.url"}
+          instagramUrl={siteContent.instagramUrl || "tmp.instagram.url"}
+        />
+      </section>
+    </main>
+
+    <Footer groupName={siteContent.groupName || "tmpGroupName"} year={2026} />
+  </body>
+</html>

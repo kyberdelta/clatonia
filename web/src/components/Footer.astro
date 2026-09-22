@@ -1,0 +1,27 @@
+---
+interface Props {
+  groupName: string;
+  year: number;
+}
+
+const { groupName, year } = Astro.props;
+---
+
+<footer class="footer">
+  <div class="container">
+    <p>&copy; {year} {groupName}. Všechna práva vyhrazena.</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: #1a1a1a;
+    color: #fff;
+    text-align: center;
+    padding: 2rem;
+  }
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+</style>
