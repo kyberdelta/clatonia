@@ -36,7 +36,7 @@
 .performance-content p {
     white-space: pre-wrap;
     font-size: 1.05rem;
-    color: var(--light);
+    color: var(--text-main);
     line-height: 1.8;
 }
 

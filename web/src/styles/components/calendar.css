@@ -6,7 +6,7 @@
     display: flex;
     gap: 2rem;
     padding: 1.5rem 0;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .event-row:last-child {
@@ -14,10 +14,52 @@
 }
 
 .event-date {
-    font-weight: bold;
-    color: var(--primary);
     width: 140px;
     flex-shrink: 0;
+}
+
+.event-date-text {
+    font-weight: bold;
+    color: var(--primary);
+    margin-bottom: 0.25rem;
+}
+
+.event-time {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: normal;
+    margin-top: 0.25rem;
+}
+
+.event-info {
+    flex: 1;
+}
+
+.event-title {
+    font-size: 1.1rem;
+    display: block;
+    color: var(--text-main);
+}
+
+.event-location {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+}
+
+.event-desc {
+    margin: 0.5rem 0 0.75rem;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+.event-image {
+    display: block;
+    border-radius: 4px;
+    max-width: 100%;
+    height: auto;
+    margin-top: 0.75rem;
 }
 
 @media (max-width: 600px) {

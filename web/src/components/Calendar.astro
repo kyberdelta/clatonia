@@ -19,7 +19,7 @@ interface Props {
 const { title, items } = Astro.props;
 ---
 
-<section id="calendar" class="section bg-light">
+<section id="calendar" class="section bg-alt">
   <div class="container">
     <h2 class="section-title-lined">{title}</h2>
 
@@ -28,39 +28,31 @@ const { title, items } = Astro.props;
         items.map((event) => (
           <div class="event-row">
             <div class="event-date">
-              <div style="font-weight: bold; margin-bottom: 0.25rem;">
+              <div class="event-date-text">
                 {event.date
                   ? new Date(event.date).toLocaleDateString("cs-CZ")
                   : "Termín upřesníme"}
               </div>
 
-              {event.time && (
-                <div style="font-size: 0.85rem; color: #777; font-weight: normal; margin-top: 0.25rem;">
-                  {event.time}
-                </div>
-              )}
+              {event.time && <div class="event-time">{event.time}</div>}
             </div>
 
             <div class="event-info">
-              <strong style="font-size: 1.1rem;">{event.title}</strong>
+              <strong class="event-title">{event.title}</strong>
 
               {event.location && (
-                <div style="font-size: 0.9rem; color: #666; margin-top: 0.25rem;">
-                  {event.location}
-                </div>
+                <div class="event-location">{event.location}</div>
               )}
 
               {event.description && (
-                <p style="margin: 0.5rem 0 0.75rem; font-size: 0.95rem; color: #555;">
-                  {event.description}
-                </p>
+                <p class="event-desc">{event.description}</p>
               )}
 
               {event.image && (
                 <img
                   src={urlFor(event.image).width(300).url()}
                   alt={event.title}
-                  style="display: block; border-radius: 4px; max-width: 100%; height: auto; margin-top: 0.5rem;"
+                  class="event-image"
                 />
               )}
             </div>

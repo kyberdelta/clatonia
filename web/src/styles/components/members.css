@@ -14,7 +14,7 @@
     aspect-ratio: 1 / 1;
 
     border: 2px solid var(--border);
-    background-color: var(--dark);
+    background-color: var(--bg-main);
 
     margin: 0 auto;
     display: block;
@@ -35,7 +35,7 @@
 
 .member-role {
     font-size: 0.95rem;
-    color: var(--light-alt);
+    color: var(--text-muted);
     font-style: italic;
     margin-top: 0;
     margin-bottom: 1rem;

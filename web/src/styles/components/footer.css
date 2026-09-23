@@ -1,0 +1,12 @@
+.footer {
+    background: var(--bg-alt);
+    color: var(--text-main);
+    text-align: center;
+    padding: 2rem;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+

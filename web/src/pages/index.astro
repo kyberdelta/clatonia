@@ -54,6 +54,7 @@ interface SiteContent {
 
   facebookUrl?: string;
   instagramUrl?: string;
+  youtubeUrl?: string;
 }
 
 const siteContent = await sanityClient.fetch<SiteContent>(`
@@ -143,11 +144,13 @@ const performer = await sanityClient.fetch<SanityPerformer[]>(`
 
       <section id="contact" class="section container">
         <Contact
+          title={siteContent.titleContact || "tmpTitleContact"}
           email={siteContent.email || "tmpEmail"}
           phone={siteContent.phone || "tmpPhone"}
           phoneContactName={siteContent.phoneContactName || "tmpContactName"}
-          facebookUrl={siteContent.facebookUrl || "tmp.facebook.url"}
-          instagramUrl={siteContent.instagramUrl || "tmp.instagram.url"}
+          facebookUrl={siteContent.facebookUrl}
+          instagramUrl={siteContent.instagramUrl}
+          youtubeUrl={siteContent.youtubeUrl}
         />
       </section>
     </main>

@@ -1,5 +1,5 @@
 .header {
-    background-color: var(--dark-alt);
+    background-color: var(--bg-alt);
     border-bottom: 1px solid var(--border);
     position: sticky;
     top: 0;
@@ -20,7 +20,7 @@
     align-items: center;
     gap: 0.75rem;
     text-decoration: none;
-    color: var(--light);
+    color: var(--text-main);
 }
 
 .header-logo {
@@ -32,7 +32,7 @@
 nav a {
     margin-left: 1.5rem;
     text-decoration: none;
-    color: var(--light-alt);
+    color: var(--text-muted);
     font-weight: 500;
     transition: color 0.2s ease;
 }

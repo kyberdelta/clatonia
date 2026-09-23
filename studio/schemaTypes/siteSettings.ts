@@ -55,5 +55,6 @@ export default defineType({
         // --- SOCIÁLNÍ SÍTĚ ---
         defineField({ name: 'facebookUrl', title: 'Odkaz na Facebook', type: 'url', fieldset: 'social' }),
         defineField({ name: 'instagramUrl', title: 'Odkaz na Instagram', type: 'url', fieldset: 'social' }),
+        defineField({ name: 'youtubeUrl', title: 'Odkaz na YouTube', type: 'url', fieldset: 'social' }),
     ],
 })

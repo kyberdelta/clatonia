@@ -1,29 +1,35 @@
 ---
-// Zde si definujeme, jaká data z index.astro očekáváme
+import "../styles/components/contact.css";
+
 export interface Props {
+  title: string;
   email: string;
   phone: string;
   phoneContactName: string;
-  facebookUrl: string;
-  instagramUrl: string;
+  facebookUrl?: string;
+  instagramUrl?: string;
+  youtubeUrl?: string;
 }
 
-// Vytažení dat do proměnných
-const { email, phone, phoneContactName, facebookUrl, instagramUrl } =
-  Astro.props;
+const {
+  title,
+  email,
+  phone,
+  phoneContactName,
+  facebookUrl,
+  instagramUrl,
+  youtubeUrl,
+} = Astro.props;
 ---
 
-<section id="kontakt" class="section container">
-  <h2 class="section-title-lined">Kontakt</h2>
+<section id="contact" class="section container">
+  <h2 class="section-title-lined">{title})</h2>
 
   <div class="contact-grid">
-    <!-- 1. SLOUPEC: Jméno, Telefon a fakturace -->
     <div class="contact-col">
       {phoneContactName && <p class="primary-text">{phoneContactName}</p>}
-      {phone && <p class="primary-text">tel.: {phone}</p>}
     </div>
 
-    <!-- 2. SLOUPEC: E-mail a Web -->
     <div class="contact-col">
       {
         email && (
@@ -32,11 +38,9 @@ const { email, phone, phoneContactName, facebookUrl, instagramUrl } =
           </p>
         )
       }
-      <!-- Váš web (můžete přepsat na svou skutečnou doménu) -->
-      <p class="primary-text"><a href="/">www.clatonia.cz</a></p>
+      {phone && <p class="primary-text">tel.: {phone}</p>}
     </div>
 
-    <!-- 3. SLOUPEC: Sociální sítě (Ikonky) -->
     <div class="contact-col contact-socials">
       {
         facebookUrl && (
@@ -66,84 +70,20 @@ const { email, phone, phoneContactName, facebookUrl, instagramUrl } =
           </a>
         )
       }
+      {
+        youtubeUrl && (
+          <a
+            href={youtubeUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="YouTube"
+          >
+            <svg viewBox="0 0 24 24" class="social-icon">
+              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+            </svg>
+          </a>
+        )
+      }
     </div>
   </div>
 </section>
-
-<style>
-  /* Styl nadpisu s linkou (využijeme stejný jako u nabídky, abychom drželi konzistenci) */
-  .section-title-lined {
-    font-size: 2.2rem;
-    color: #a0a0a0;
-    border-bottom: 1px solid #ccc; /* Horní linka z obrázku */
-    padding-bottom: 0.5rem;
-    margin-bottom: 1.5rem;
-    text-transform: uppercase;
-  }
-
-  /* Obal pro ty 3 sloupce */
-  .contact-grid {
-    display: flex;
-    justify-content: space-between;
-    align-items: center; /* Zarovná texty i ikonky svisle na střed */
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid #ccc; /* Dolní linka z obrázku */
-  }
-
-  .contact-col {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-
-  /* Styl hlavních textů (jméno, e-mail) - šedá barva jako na obrázku */
-  .primary-text {
-    margin: 0;
-    color: #777;
-    font-size: 1.1rem;
-  }
-
-  .primary-text a {
-    color: #777;
-    text-decoration: none;
-  }
-
-  .primary-text a:hover {
-    color: #b38b22; /* Při najetí myší zezlátne */
-  }
-
-  /* Doplňkové informace (IČO) */
-  .billing-info {
-    margin-top: 0.5rem;
-    display: flex;
-    flex-direction: column;
-    font-size: 0.85rem;
-    color: #a0a0a0;
-  }
-
-  /* Ikonky sociálních sítí */
-  .contact-socials {
-    flex-direction: row;
-    gap: 1.5rem;
-  }
-
-  .social-icon {
-    width: 36px;
-    height: 36px;
-    fill: #b38b22; /* Ta zlatavá barva z obrázku */
-    transition: opacity 0.2s ease-in-out;
-  }
-
-  .social-icon:hover {
-    opacity: 0.7;
-  }
-
-  /* Přeskládání na telefonech (pod sebou) */
-  @media (max-width: 768px) {
-    .contact-grid {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 2rem;
-    }
-  }
-</style>
