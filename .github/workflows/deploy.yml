@@ -22,6 +22,7 @@ jobs:
       - name: Instalace a sestavení (Astro)
         uses: withastro/action@v3
         with:
+          node-version: 22
           path: web
 
   deploy:
