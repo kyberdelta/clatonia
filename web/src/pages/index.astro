@@ -18,8 +18,13 @@ import type {
   SanityMember,
 } from "../types/sanityTypes";
 
-const sanityActions = await sanityClient.fetch<SanityEvent[]>(`
-  *[_type == "event"] | order(date desc) {
+const today = new Date();
+today.setMonth(today.getMonth() - 3);
+const dateLimit = today.toISOString().split("T")[0];
+
+const sanityActions = await sanityClient.fetch<SanityEvent[]>(
+  `
+  *[_type == "event" && date >= $limit] | order(date asc) {
     title,
     date,
     time,         
@@ -27,7 +32,9 @@ const sanityActions = await sanityClient.fetch<SanityEvent[]>(`
     description,
     image
   }
-`);
+`,
+  { limit: dateLimit },
+);
 
 const siteContent = await sanityClient.fetch<SiteContent>(`
   *[_type == "siteSettings"][0]
@@ -42,7 +49,7 @@ const performance = await sanityClient.fetch<SanityPerformance[]>(`
 `);
 
 const member = await sanityClient.fetch<SanityMember[]>(`
-  *[_type == "member"] | order(_createdAt asc) {
+  *[_type == "members"] | order(_createdAt asc) {
     name,
     role,
     image
