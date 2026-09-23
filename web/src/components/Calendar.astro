@@ -1,15 +1,7 @@
 ---
 import "../styles/components/calendar.css";
 import { urlFor } from "../lib/sanity";
-
-interface SanityEvent {
-  title: string;
-  date?: string;
-  time?: string;
-  location?: string;
-  description?: string;
-  image?: any;
-}
+import type { SanityEvent } from "../types/sanityTypes";
 
 interface Props {
   title: string;

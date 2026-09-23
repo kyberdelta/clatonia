@@ -2,15 +2,11 @@
 import "../styles/components/members.css";
 import { urlFor } from "../lib/sanity";
 
-interface Member {
-  name: string;
-  role?: string;
-  image?: any;
-}
+import type { SanityMember } from "../types/sanityTypes";
 
 interface Props {
   title: string;
-  items: Member[];
+  items: SanityMember[];
 }
 
 const { title, items } = Astro.props;

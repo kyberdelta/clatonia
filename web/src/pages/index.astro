@@ -11,14 +11,12 @@ import Members from "../components/Members.astro";
 
 import { sanityClient } from "../lib/sanity";
 
-interface SanityEvent {
-  title: string;
-  date?: string;
-  time?: string;
-  location?: string;
-  description?: string;
-  image?: any;
-}
+import type {
+  SanityEvent,
+  SiteContent,
+  SanityPerformance,
+  SanityMember,
+} from "../types/sanityTypes";
 
 const sanityActions = await sanityClient.fetch<SanityEvent[]>(`
   *[_type == "event"] | order(date desc) {
@@ -31,41 +29,9 @@ const sanityActions = await sanityClient.fetch<SanityEvent[]>(`
   }
 `);
 
-interface SiteContent {
-  themeFont?: string;
-  // HEADER
-  groupName?: string;
-  logo?: any;
-  titleAboutUs?: string;
-  titlePerformances?: string;
-  titleCalendar?: string;
-  titleMembers?: string;
-  titleContact?: string;
-
-  // HERO
-  heroImage?: any;
-
-  tagline?: string;
-  aboutText?: string;
-
-  email?: string;
-  phone?: string;
-  phoneContactName?: string;
-
-  facebookUrl?: string;
-  instagramUrl?: string;
-  youtubeUrl?: string;
-}
-
 const siteContent = await sanityClient.fetch<SiteContent>(`
   *[_type == "siteSettings"][0]
 `);
-
-interface SanityPerformance {
-  title: string;
-  description?: string;
-  image?: any;
-}
 
 const performance = await sanityClient.fetch<SanityPerformance[]>(`
   *[_type == "performance"] | order(_createdAt asc) {
@@ -75,14 +41,8 @@ const performance = await sanityClient.fetch<SanityPerformance[]>(`
   }   
 `);
 
-interface SanityPerformer {
-  name: string;
-  role: string;
-  image?: any;
-}
-
-const performer = await sanityClient.fetch<SanityPerformer[]>(`
-  *[_type == "performer"] | order(_createdAt asc) {
+const member = await sanityClient.fetch<SanityMember[]>(`
+  *[_type == "member"] | order(_createdAt asc) {
     name,
     role,
     image
@@ -139,7 +99,7 @@ const performer = await sanityClient.fetch<SanityPerformer[]>(`
 
       <Members
         title={siteContent.titleMembers || "tmpTitleMembers"}
-        items={performer}
+        items={member}
       />
 
       <section id="contact" class="section container">
