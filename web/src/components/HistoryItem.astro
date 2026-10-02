@@ -1,0 +1,191 @@
+---
+import type { SanityPerformance } from "../types/sanityTypes";
+import "../styles/components/historyItem.css";
+
+interface Props {
+  perf: SanityPerformance;
+}
+
+const { perf } = Astro.props;
+
+// Vytvoříme unikátní ID pro tuto konkrétní galerii (aby se obrázky nesmíchaly dohromady)
+// Můžeme použít např. název převedený na malá písmena bez mezer nebo náhodný string
+const galleryId = "gallery-" + Math.random().toString(36).substr(2, 9);
+---
+
+<details class="perf-accordion">
+  {/* HLAVIČKA AKORDEONU */}
+  <summary class="perf-header">
+    <div class="perf-header-left">
+      {perf.image && <img src={perf.image} alt="" class="perf-header-thumb" />}
+
+      <h2 class="perf-title">
+        {perf.title}
+        {
+          perf.yearsActive && (
+            <span class="perf-years">({perf.yearsActive})</span>
+          )
+        }
+      </h2>
+    </div>
+
+    <span class="accordion-indicator"></span>
+  </summary>
+
+  {/* TĚLO AKORDEONU (Obsah) */}
+  <div class="perf-body">
+    {perf.description && <p class="perf-desc">{perf.description}</p>}
+
+    {/* YOUTUBE VIDEO */}
+    {
+      perf.youtubeUrl && (
+        <div class="video-wrapper">
+          <iframe
+            loading="lazy"
+            src={perf.youtubeUrl.replace("watch?v=", "embed/")}
+            allow="fullscreen; autoplay; encrypted-media"
+            allowfullscreen
+          />
+        </div>
+      )
+    }
+
+    {/* FOTOGALERIE S KLIKACÍMI OBRÁZKY */}
+    {
+      perf.galleryUrls && perf.galleryUrls.length > 0 && (
+        <div class="gallery-grid" data-gallery-id={galleryId}>
+          {perf.galleryUrls.map((url, index) => (
+            <img
+              src={url}
+              loading="lazy"
+              alt={`Fotografie z představení ${perf.title}`}
+              class="gallery-img lightbox-trigger"
+              data-index={index}
+            />
+          ))}
+        </div>
+      )
+    }
+  </div>
+</details>
+
+{
+  /* 
+  Tento skript se postará o vygenerování JEDNOHO globálního okna Lightboxu pro celou stránku.
+  Astro díky tagu <script> zařídí, že se kód nespustí 10x, ale jen jednou na klientovi.
+*/
+}
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // 1. Zkontrolujeme, zda už Lightbox okno na stránce náhodou neexistuje
+    let modal = document.getElementById("global-lightbox-modal");
+
+    // Pokud ne, dynamicky ho vytvoříme
+    if (!modal) {
+      modal = document.createElement("div");
+      modal.id = "global-lightbox-modal";
+      modal.className = "lightbox-modal";
+      modal.innerHTML = `
+        <span class="lightbox-close">&times;</span>
+        <button class="lightbox-prev" aria-label="Předchozí fotka">&#10094;</button>
+        <button class="lightbox-next" aria-label="Další fotka">&#10095;</button>
+        <div class="lightbox-container">
+          <img class="lightbox-content" id="lightbox-img" alt="Zvětšená fotografie" />
+          <div id="lightbox-counter" class="lightbox-counter"></div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+    }
+
+    const modalImg = document.getElementById(
+      "lightbox-img",
+    ) as HTMLImageElement;
+    const counter = document.getElementById("lightbox-counter");
+    const closeBtn = modal.querySelector(".lightbox-close");
+    const prevBtn = modal.querySelector(".lightbox-prev");
+    const nextBtn = modal.querySelector(".lightbox-next");
+
+    let currentUrls: string[] = [];
+    let currentIndex = 0;
+
+    // 2. Přidáme posluchače na VŠECHNY obrázky
+    const triggers = document.querySelectorAll(".lightbox-trigger");
+
+    triggers.forEach((trigger) => {
+      trigger.addEventListener("click", (e) => {
+        const clickedImg = e.currentTarget as HTMLImageElement;
+
+        // Najdeme rodičovský kontejner (div.gallery-grid), ve kterém se kliknulo
+        const galleryGrid = clickedImg.closest(".gallery-grid");
+        if (!galleryGrid) return;
+
+        // Vytáhneme si adresy (src) ze VŠECH obrázků uvnitř TÉTO jedné galerie
+        const galleryImages = Array.from(
+          galleryGrid.querySelectorAll(".lightbox-trigger"),
+        ) as HTMLImageElement[];
+        currentUrls = galleryImages.map((img) => img.src);
+
+        // Zjistíme pořadí fotky, na kterou jsme klikli
+        currentIndex = parseInt(
+          clickedImg.getAttribute("data-index") || "0",
+          10,
+        );
+
+        updateLightbox();
+        if (modal) modal.style.display = "flex";
+      });
+    });
+
+    function updateLightbox() {
+      if (modalImg && counter && currentUrls.length > 0) {
+        modalImg.src = currentUrls[currentIndex];
+        counter.textContent = `${currentIndex + 1} / ${currentUrls.length}`;
+      }
+    }
+
+    function showPrev(e?: Event) {
+      if (e) e.stopPropagation();
+      if (currentUrls.length === 0) return;
+      currentIndex =
+        (currentIndex - 1 + currentUrls.length) % currentUrls.length;
+      updateLightbox();
+    }
+
+    function showNext(e?: Event) {
+      if (e) e.stopPropagation();
+      if (currentUrls.length === 0) return;
+      currentIndex = (currentIndex + 1) % currentUrls.length;
+      updateLightbox();
+    }
+
+    function closeModal() {
+      if (modal) modal.style.display = "none";
+    }
+
+    // 3. Eventy pro tlačítka v Lightboxu
+    if (prevBtn) prevBtn.addEventListener("click", showPrev);
+    if (nextBtn) nextBtn.addEventListener("click", showNext);
+    if (closeBtn) closeBtn.addEventListener("click", closeModal);
+
+    // Zavření při kliknutí vedle obrázku
+    if (modal) {
+      modal.addEventListener("click", (e) => {
+        if (
+          e.target === modal ||
+          e.target === modal.querySelector(".lightbox-container")
+        ) {
+          closeModal();
+        }
+      });
+    }
+
+    // Ovládání šipkami z klávesnice
+    document.addEventListener("keydown", (e) => {
+      if (modal && modal.style.display === "flex") {
+        if (e.key === "ArrowLeft") showPrev();
+        if (e.key === "ArrowRight") showNext();
+        if (e.key === "Escape") closeModal();
+      }
+    });
+  });
+</script>

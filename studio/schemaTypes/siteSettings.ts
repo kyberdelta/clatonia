@@ -9,6 +9,7 @@ export default defineType({
         { name: 'hero', title: 'Hero sekce' },
         { name: 'contact', title: 'Kontaktní údaje' },
         { name: 'social', title: 'Sociální sítě' },
+        { name: 'history', title: 'Historie' },
     ],
     fields: [
 
@@ -41,6 +42,8 @@ export default defineType({
         defineField({ name: 'titleMembers', title: 'Titulek "Členové"', type: 'string', fieldset: 'header' }),
         defineField({ name: 'titleContact', title: 'Titulek "Kontakt"', type: 'string', fieldset: 'header' }),
         defineField({ name: 'titleHistory', title: 'Titulek Historie', type: 'string', fieldset: 'header' }),
+        defineField({ name: 'titleHome', title: 'Titulek Domů', type: 'string', fieldset: 'header' }),
+
         // HERO
         defineField({ name: 'heroImage', title: 'Obrázek na pozadí', type: 'image', options: { hotspot: true }, fieldset: 'hero' }),
 
@@ -56,5 +59,9 @@ export default defineType({
         defineField({ name: 'facebookUrl', title: 'Odkaz na Facebook', type: 'url', fieldset: 'social' }),
         defineField({ name: 'instagramUrl', title: 'Odkaz na Instagram', type: 'url', fieldset: 'social' }),
         defineField({ name: 'youtubeUrl', title: 'Odkaz na YouTube', type: 'url', fieldset: 'social' }),
+
+        // --- HISTORIE ---
+        defineField({ name: 'introHistory', title: 'Úvodní text na stránce Historie', type: 'text', fieldset: 'history' }),
+
     ],
 })

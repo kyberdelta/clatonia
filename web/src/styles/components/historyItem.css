@@ -1,0 +1,233 @@
+.perf-accordion {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background-color: var(--bg-alt);
+    overflow: hidden;
+}
+
+.perf-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    list-style: none;
+    transition: background-color 0.2s ease;
+}
+
+.perf-header::-webkit-details-marker {
+    display: none;
+}
+
+.perf-header:hover {
+    background-color: var(--bg-main);
+}
+
+.perf-header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.perf-header-thumb {
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+}
+
+.perf-title {
+    margin: 0;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--text-main);
+}
+
+.perf-years {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-weight: normal;
+}
+
+.accordion-indicator::after {
+    content: "+";
+    font-size: 1.5rem;
+    color: var(--primary);
+    font-weight: bold;
+}
+
+details[open] .accordion-indicator::after {
+    content: "−";
+}
+
+.perf-body {
+    padding: 1.5rem;
+    border-top: 1px solid var(--border);
+}
+
+.perf-desc {
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    color: var(--text-main);
+}
+
+.video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 6px;
+    margin-bottom: 2rem;
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* --- GALERIE (Zobrazení celých fotek bez ořezu) --- */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+.gallery-img {
+    width: 100%;
+    height: 120px;
+    object-fit: contain;
+    background-color: var(--bg-main);
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.gallery-img:hover {
+    opacity: 0.85;
+    transform: scale(1.02);
+}
+
+/* --- LIGHTBOX (Modální okno přes celou obrazovku) --- */
+.lightbox-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+.lightbox-content {
+    max-width: 90%;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 2.5rem;
+    color: #fff;
+    font-size: 3rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.lightbox-close:hover {
+    color: var(--primary);
+}
+
+@media (max-width: 600px) {
+    .perf-title {
+        font-size: 1.1rem;
+        flex-wrap: wrap;
+    }
+}
+
+/* --- VYLEPŠENÝ LIGHTBOX S POSOUVÁNÍM --- */
+.lightbox-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 90%;
+    max-height: 90vh;
+}
+
+.lightbox-counter {
+    color: #fff;
+    margin-top: 0.75rem;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+}
+
+/* Tlačítka vlevo / vpravo */
+.lightbox-prev,
+.lightbox-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    border: none;
+    font-size: 2rem;
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.2s ease, color 0.2s ease;
+    z-index: 10000;
+}
+
+.lightbox-prev:hover,
+.lightbox-next:hover {
+    background: rgba(255, 255, 255, 0.3);
+    color: var(--primary);
+}
+
+.lightbox-prev {
+    left: 1.5rem;
+}
+
+.lightbox-next {
+    right: 1.5rem;
+}
+
+/* Responzivita pro mobilní zařízení (posunout tlačítka níž nebo zmenšit) */
+@media (max-width: 768px) {
+
+    .lightbox-prev,
+    .lightbox-next {
+        padding: 0.5rem 0.75rem;
+        font-size: 1.5rem;
+    }
+
+    .lightbox-prev {
+        left: 0.5rem;
+    }
+
+    .lightbox-next {
+        right: 0.5rem;
+    }
+}

@@ -1,0 +1,77 @@
+---
+import { sanityClient } from "../lib/sanity";
+import "../styles/global.css";
+import "../styles/pages/history.css";
+
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import HistoryItem from "../components/HistoryItem.astro"; // Vaše nová komponenta
+
+import type { SiteContent, SanityPerformance } from "../types/sanityTypes";
+
+const siteContent = await sanityClient.fetch<SiteContent>(`
+  *[_type == "siteSettings"][0]
+`);
+
+const allPerformances = await sanityClient.fetch<SanityPerformance[]>(`
+  *[_type == "performance"] | order(_createdAt desc) {
+    title,
+    performanceType,
+    yearsActive,
+    description,
+    youtubeUrl,
+    "image": image.asset->url,
+    "galleryUrls": gallery[].asset->url
+  }   
+`);
+---
+
+<html lang="cs">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Lora:ital,wght@0,400..700;1,400..700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script
+      data-goatcounter="https://kyberdelta.goatcounter.com/count"
+      async
+      src="//gc.zgo.at/count.js"></script>
+
+    <title>
+      {siteContent.titleHistory || "Historie"} | {siteContent.groupName}
+    </title>
+  </head>
+
+  <body class={siteContent.themeFont || "font-clatonia"}>
+    <Header
+      logoImage={siteContent.logo}
+      groupName={siteContent.groupName || "tmpGroupName"}
+      titleHistory={siteContent.titleHistory}
+      titleHome={siteContent.titleHome}
+    />
+
+    <main class="container history-main">
+      <h1 class="page-title">
+        {siteContent.titleHistory || "Historie představení"}
+      </h1>
+      <p class="history-intro">
+        {
+          siteContent.introHistory ||
+            "Archiv naší divadelní a ohňové tvorby napříč lety."
+        }
+      </p>
+
+      <div class="accordion-container">
+        {allPerformances.map((perf) => <HistoryItem perf={perf} />)}
+      </div>
+    </main>
+
+    <Footer groupName={siteContent.groupName || "tmpGroupName"} year={2026} />
+  </body>
+</html>

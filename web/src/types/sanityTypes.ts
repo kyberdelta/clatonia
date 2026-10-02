@@ -17,6 +17,7 @@ export interface SiteContent {
     titleMembers?: string;
     titleContact?: string;
     titleHistory?: string;
+    titleHome?: string;
     heroImage?: any;
     tagline?: string;
     aboutText?: string;
@@ -26,6 +27,7 @@ export interface SiteContent {
     facebookUrl?: string;
     instagramUrl?: string;
     youtubeUrl?: string;
+    introHistory?: string;
 }
 
 export interface SanityPerformance {

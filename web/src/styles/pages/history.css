@@ -1,0 +1,25 @@
+.history-main {
+    padding-top: 2rem;
+    padding-bottom: 4rem;
+    min-height: 80vh;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.page-title {
+    color: var(--primary);
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.history-intro {
+    text-align: center;
+    color: var(--text-muted);
+    margin-bottom: 3rem;
+}
+
+.accordion-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}

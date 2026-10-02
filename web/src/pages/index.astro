@@ -87,7 +87,8 @@ const member = await sanityClient.fetch<SanityMember[]>(`
       titleCalendar={siteContent.titleCalendar || "tmpCalendar"}
       titleMembers={siteContent.titleMembers || "tmpMembers"}
       titleContact={siteContent.titleContact || "tmpContact"}
-      titleHistory={siteContent.titleHistory || "tmpHistory"}
+      titleHistory={siteContent.titleHistory}
+      titleHome={siteContent.titleHome}
     />
 
     <main>

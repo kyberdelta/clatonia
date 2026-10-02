@@ -77,9 +77,9 @@ export default defineType({
             media: 'image'
         },
         prepare(selection) {
-            const { title, subtitle, type, media } = selection;
+            const { title, subtitle, media } = selection;
             return {
-                title: `${type === 'fire' ? '🔥' : '🎭'} ${title}`,
+                title: `${title}`,
                 subtitle: subtitle,
                 media: media
             }
