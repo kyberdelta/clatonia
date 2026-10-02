@@ -10,6 +10,7 @@ interface Props {
   titleCalendar: string;
   titleMembers: string;
   titleContact: string;
+  titleHistory: string;
 }
 
 const {
@@ -20,6 +21,7 @@ const {
   titleCalendar,
   titleMembers,
   titleContact,
+  titleHistory,
 } = Astro.props;
 
 const finalLogoUrl = logoImage ? urlFor(logoImage).url() : "";
@@ -27,7 +29,7 @@ const finalLogoUrl = logoImage ? urlFor(logoImage).url() : "";
 
 <header class="header">
   <div class="container nav-bar">
-    <a href="/" class="logo">
+    <a href="/clatonia/" class="logo">
       {
         finalLogoUrl !== "/logo.png" && (
           <img
@@ -40,12 +42,65 @@ const finalLogoUrl = logoImage ? urlFor(logoImage).url() : "";
       <strong>{groupName}</strong>
     </a>
 
-    <nav>
-      <a href="#aboutUs">{titleAboutUs}</a>
-      <a href="#performances">{titlePerformances}</a>
-      <a href="#calendar">{titleCalendar}</a>
-      <a href="#members">{titleMembers}</a>
-      <a href="#contact" class="btn-nav">{titleContact}</a>
+    <nav class="desktop-nav">
+      <a href="/clatonia/#aboutUs">{titleAboutUs}</a>
+      <a href="/clatonia/#performances">{titlePerformances}</a>
+      <a href="/clatonia/#calendar">{titleCalendar}</a>
+      <a href="/clatonia/#members">{titleMembers}</a>
+      <a href="/clatonia/#contact" class="btn-nav">{titleContact}</a>
     </nav>
+
+    <div class="menu-wrapper">
+      <button id="mobile-menu-toggle" aria-label="Open navigation">
+        <svg
+          viewBox="0 0 24 24"
+          width="30"
+          height="30"
+          stroke="currentColor"
+          stroke-width="2"
+          fill="none"
+        >
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+
+      <div id="dropdown-panel" class="dropdown-hidden">
+        <div class="mobile-only-links">
+          <a href="/clatonia/#aboutUs">{titleAboutUs}</a>
+          <a href="/clatonia/#performances">{titlePerformances}</a>
+          <a href="/clatonia/#calendar">{titleCalendar}</a>
+          <a href="/clatonia/#members">{titleMembers}</a>
+          <a href="/clatonia/#contact">{titleContact}</a>
+        </div>
+
+        <a href="/clatonia/historie" class="history-link"
+          >{titleHistory || "Historie a archiv"}</a
+        >
+      </div>
+    </div>
   </div>
 </header>
+
+<script>
+  const toggleBtn = document.getElementById("mobile-menu-toggle");
+  const dropdownPanel = document.getElementById("dropdown-panel");
+
+  if (toggleBtn && dropdownPanel) {
+    toggleBtn.addEventListener("click", (event) => {
+      event.stopPropagation();
+      dropdownPanel.classList.toggle("is-active");
+    });
+
+    document.addEventListener("click", (event) => {
+      const target = event.target as Node;
+      if (
+        dropdownPanel.classList.contains("is-active") &&
+        !dropdownPanel.contains(target)
+      ) {
+        dropdownPanel.classList.remove("is-active");
+      }
+    });
+  }
+</script>

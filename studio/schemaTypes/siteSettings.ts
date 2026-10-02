@@ -40,7 +40,7 @@ export default defineType({
         defineField({ name: 'titleCalendar', title: 'Titulek "Kalendář"', type: 'string', fieldset: 'header' }),
         defineField({ name: 'titleMembers', title: 'Titulek "Členové"', type: 'string', fieldset: 'header' }),
         defineField({ name: 'titleContact', title: 'Titulek "Kontakt"', type: 'string', fieldset: 'header' }),
-
+        defineField({ name: 'titleHistory', title: 'Titulek Historie', type: 'string', fieldset: 'header' }),
         // HERO
         defineField({ name: 'heroImage', title: 'Obrázek na pozadí', type: 'image', options: { hotspot: true }, fieldset: 'hero' }),
 

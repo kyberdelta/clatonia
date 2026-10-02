@@ -41,8 +41,10 @@ const siteContent = await sanityClient.fetch<SiteContent>(`
 `);
 
 const performance = await sanityClient.fetch<SanityPerformance[]>(`
-  *[_type == "performance"] | order(_createdAt asc) {
+  *[_type == "performance" && isActive == true] | order(_createdAt asc) {
     title,
+    performanceType,
+    yearsActive,
     description,
     image
   }   
@@ -69,9 +71,11 @@ const member = await sanityClient.fetch<SanityMember[]>(`
       rel="stylesheet"
     />
 
-    <script data-goatcounter="https://kyberdelta.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
-        
+    <script
+      data-goatcounter="https://kyberdelta.goatcounter.com/count"
+      async
+      src="//gc.zgo.at/count.js"></script>
+
     <title>{siteContent.groupName}</title>
   </head>
   <body class={siteContent.themeFont || "font-clatonia"}>
@@ -83,6 +87,7 @@ const member = await sanityClient.fetch<SanityMember[]>(`
       titleCalendar={siteContent.titleCalendar || "tmpCalendar"}
       titleMembers={siteContent.titleMembers || "tmpMembers"}
       titleContact={siteContent.titleContact || "tmpContact"}
+      titleHistory={siteContent.titleHistory || "tmpHistory"}
     />
 
     <main>

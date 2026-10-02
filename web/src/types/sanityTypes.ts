@@ -16,6 +16,7 @@ export interface SiteContent {
     titleCalendar?: string;
     titleMembers?: string;
     titleContact?: string;
+    titleHistory?: string;
     heroImage?: any;
     tagline?: string;
     aboutText?: string;
@@ -29,8 +30,13 @@ export interface SiteContent {
 
 export interface SanityPerformance {
     title: string;
+    performanceType: 'theatre' | 'fire';
+    isActive: boolean;
+    yearsActive?: string;
     description?: string;
+    youtubeUrl?: string;
     image?: any;
+    galleryUrls?: string[];
 }
 
 export interface SanityMember {
