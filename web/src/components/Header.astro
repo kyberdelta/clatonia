@@ -45,11 +45,15 @@ const finalLogoUrl = logoImage ? urlFor(logoImage).url() : "";
     </a>
 
     <nav class="desktop-nav">
-      <a href="/clatonia/#aboutUs">{titleAboutUs}</a>
-      <a href="/clatonia/#performances">{titlePerformances}</a>
-      <a href="/clatonia/#calendar">{titleCalendar}</a>
-      <a href="/clatonia/#members">{titleMembers}</a>
-      <a href="/clatonia/#contact" class="btn-nav">{titleContact}</a>
+      {titleAboutUs && <a href="/clatonia/#aboutUs">{titleAboutUs}</a>}
+      {
+        titlePerformances && (
+          <a href="/clatonia/#performances">{titlePerformances}</a>
+        )
+      }
+      {titleCalendar && <a href="/clatonia/#calendar">{titleCalendar}</a>}
+      {titleMembers && <a href="/clatonia/#members">{titleMembers}</a>}
+      {titleContact && <a href="/clatonia/#contact">{titleContact}</a>}
     </nav>
 
     <div class="menu-wrapper">
@@ -71,11 +75,15 @@ const finalLogoUrl = logoImage ? urlFor(logoImage).url() : "";
       <div id="dropdown-panel" class="dropdown-hidden">
         <a href="/clatonia/" class="link">{titleHome}</a>
         <div class="mobile-only-links">
-          <a href="/clatonia/#aboutUs">{titleAboutUs}</a>
-          <a href="/clatonia/#performances">{titlePerformances}</a>
-          <a href="/clatonia/#calendar">{titleCalendar}</a>
-          <a href="/clatonia/#members">{titleMembers}</a>
-          <a href="/clatonia/#contact">{titleContact}</a>
+          {titleAboutUs && <a href="/clatonia/#aboutUs">{titleAboutUs}</a>}
+          {
+            titlePerformances && (
+              <a href="/clatonia/#performances">{titlePerformances}</a>
+            )
+          }
+          {titleCalendar && <a href="/clatonia/#calendar">{titleCalendar}</a>}
+          {titleMembers && <a href="/clatonia/#members">{titleMembers}</a>}
+          {titleContact && <a href="/clatonia/#contact">{titleContact}</a>}
         </div>
 
         <a href="/clatonia/history" class="link"
